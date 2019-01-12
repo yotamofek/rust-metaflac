@@ -1,4 +1,3 @@
-extern crate rustc_serialize;
 extern crate byteorder;
 extern crate num;
 
@@ -6,7 +5,6 @@ use error::{Result, Error, ErrorKind};
 
 use self::byteorder::{ReadBytesExt, BigEndian};
 use self::num::{FromPrimitive, ToPrimitive};
-use self::rustc_serialize::hex::ToHex;
 
 use std::ascii::AsciiExt;
 use std::collections::HashMap;
@@ -231,7 +229,7 @@ pub struct StreamInfo {
 
 impl ::std::fmt::Debug for StreamInfo {
     fn fmt(&self, out: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        write!(out, "StreamInfo {{ min_block_size: {}, max_block_size: {}, min_frame_size: {}, max_frame_size: {}, sample_rate: {}, num_channels: {}, bits_per_sample: {}, total_samples: {}, md5: {} }}", self.min_block_size, self.max_block_size, self.min_frame_size, self.max_frame_size, self.sample_rate, self.num_channels, self.bits_per_sample, self.total_samples, &self.md5[..].to_hex())
+        write!(out, "StreamInfo {{ min_block_size: {}, max_block_size: {}, min_frame_size: {}, max_frame_size: {}, sample_rate: {}, num_channels: {}, bits_per_sample: {}, total_samples: {}, md5: {:#?} }}", self.min_block_size, self.max_block_size, self.min_frame_size, self.max_frame_size, self.sample_rate, self.num_channels, self.bits_per_sample, self.total_samples, &self.md5[..])
     }
 }
 
@@ -314,7 +312,7 @@ pub struct Application {
 
 impl ::std::fmt::Debug for Application {
     fn fmt(&self, out: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        write!(out, "Application {{ id: {}, data: {:?} }}", &self.id[..].to_hex(), self.data)
+        write!(out, "Application {{ id: {:#?}, data: {:?} }}", &self.id[..], self.data)
     }
 }
 
